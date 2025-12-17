@@ -16,6 +16,11 @@ export default async function Home() {
     },
   });
 
+  interface itemType {
+    createdAt: Date;
+    update: string | null;
+  }
+
   return (
     <main className="bg-blue-400 flex flex-col pt-10 items-center text-blue-950 h-screen">
       <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[20%] mb-5 flex flex-col gap-3">
@@ -24,14 +29,14 @@ export default async function Home() {
       </div>
       <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[50%]">
         <div className="flex flex-col">
-          {updates.map((item, index) => (
+          {updates.map((item: itemType, index) => (
             <div key={index} className="flex flex-row items-center">
               <p>
-              <span className="text-sm font-bold">
-                {item.createdAt.toLocaleTimeString()} - {" "}
-              </span>
-              <span>{item.update}</span>
-            </p>
+                <span className="text-sm font-bold">
+                  {item.createdAt.toLocaleTimeString()} -{" "}
+                </span>
+                <span>{item.update}</span>
+              </p>
             </div>
           ))}
         </div>
