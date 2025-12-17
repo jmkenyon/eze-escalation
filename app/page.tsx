@@ -29,7 +29,7 @@ export default async function Home() {
       </div>
       <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[50%]">
         <div className="flex flex-col">
-          {updates.map((item: itemType, index) => (
+          {updates.map((item: itemType, index: number) => (
             <div key={index} className="flex flex-row items-center">
               <p>
                 <span className="text-sm font-bold">
