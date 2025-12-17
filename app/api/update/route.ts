@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import prisma from "@/app/lib/prisma"
 
 export async function POST(req: Request) {
-  const { advice, update } = await req.json();
+  const { advice, update, incidentId, status } = await req.json();
 
   const cookieStore = await cookies();
   const senderId = cookieStore.get("admin_session")?.value;
@@ -18,7 +18,25 @@ export async function POST(req: Request) {
       sender: {
         connect: { id: senderId },
       },
+      incident: {
+        connect: { id: incidentId },
+      },
     },
   });
+
+  if (status === "RESOLVED") {
+    await prisma.incident.update({
+      where: {
+        id: incidentId
+      },
+      data: {
+        status,
+        resolvedAt: new Date()
+      }
+    })
+  }
+
+
+
   return new Response("OK");
 }

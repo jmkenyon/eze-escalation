@@ -1,21 +1,46 @@
 import Form from "../components/Form";
-import prisma from "@/app/lib/prisma"
+import prisma from "@/app/lib/prisma";
 
+import IncidentForm from "../components/IncidentForm";
+
+import ClosedWrapper from "../components/ClosedWrapper";
 
 const Page = async () => {
+  const closedIncidents = await prisma.incident.findMany({
+    where: {
+        status: "RESOLVED"
+    }
+})
+  const incident = await prisma.incident.findFirst({
+    where: { status: "OPEN" },
+    orderBy: { openedAt: "desc" },
+    select: { id: true, title: true },
+  });
+
+  if (!incident) {
+    return (
+      <ClosedWrapper closedIncidents={closedIncidents}>
+        <section className=" h-screen flex flex-col items-center mt-50">
+          <IncidentForm />
+        </section>
+      </ClosedWrapper>
+    );
+  }
 
   const adviceResult = await prisma.message.findFirst({
-    orderBy: {createdAt: "desc"},
-    select: {advice: true}
-  })
+    where: { incidentId: incident.id },
+    orderBy: { createdAt: "desc" },
+    select: { advice: true },
+  });
 
-  const adviceContent =
-  adviceResult?.advice ?? undefined;
- 
+  const adviceContent = adviceResult?.advice ?? undefined;
+
   return (
-    <main className="bg-blue-400 h-screen flex flex-col items-center md:p-30 p-10">
-      <Form adviceContent={adviceContent}/>
-    </main>
+    <ClosedWrapper closedIncidents={closedIncidents}>
+      <section className="bg-blue-400 h-full flex flex-col items-center p-10">
+        <Form adviceContent={adviceContent} incident={incident} />
+      </section>
+    </ClosedWrapper>
   );
 };
 

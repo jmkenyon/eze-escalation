@@ -14,13 +14,23 @@ datasource db {
 }
 
 model User {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  email          String?      @unique
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  email          String?   @unique
   hashedPassword String?
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
   messages       Message[]
-  postMortems    PostMortem[]
+}
+
+model Incident {
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  title         String
+  status        IncidentStatus @default(OPEN)
+  postMortemUrl String?
+  openedAt      DateTime       @default(now())
+  resolvedAt    DateTime?
+
+  messages Message[]
 }
 
 model Message {
@@ -28,16 +38,15 @@ model Message {
   advice    String?
   update    String?
   createdAt DateTime @default(now())
-  senderId  String   @db.ObjectId
-  sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  incidentId String   @db.ObjectId
+  incident   Incident @relation(fields: [incidentId], references: [id])
+
+  senderId String @db.ObjectId
+  sender   User   @relation(fields: [senderId], references: [id])
 }
 
-model PostMortem {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  title     String
-  fileUrl   String
-  createdAt DateTime @default(now())
-
-  authorId String @db.ObjectId
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+enum IncidentStatus {
+  OPEN
+  RESOLVED
 }
