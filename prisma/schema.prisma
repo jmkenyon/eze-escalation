@@ -25,7 +25,8 @@ model User {
 
 model Message {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  body      String
+  advice    String?
+  update    String?
   createdAt DateTime @default(now())
   senderId  String   @db.ObjectId
   sender    User     @relation(fields: [senderId], references: [id], onDelete: Cascade)

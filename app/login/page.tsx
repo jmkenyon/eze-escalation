@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -16,30 +16,29 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
-
 const Page = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<FieldValues>({
     defaultValues: {
       email: "",
-      password: ""
+      password: "",
     },
-  })
+  });
 
-  const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    setIsLoading(true)
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true);
     try {
-    axios.post("/api/login", data)
-    toast.success("Logged in")
-    router.push("/admin")
+      await axios.post("/api/login", data);
+      toast.success("Logged in");
+      router.push("/admin");
     } catch (error) {
-      console.log(error)
-      toast.error("Invalid credentials")
+      console.log(error);
+      toast.error("Invalid credentials");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   return (
     <section className="flex flex-col h-screen bg-blue-400 text-white justify-center items-center">
@@ -47,7 +46,9 @@ const Page = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <FieldGroup className="flex flex-col">
             <FieldSet className="">
-              <FieldLegend className="font-bold text-center">Login to admin panel</FieldLegend>
+              <FieldLegend className="font-bold text-center">
+                Login to admin panel
+              </FieldLegend>
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -60,10 +61,10 @@ const Page = () => {
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="password">Password</FieldLabel>
-                  <Input 
-                    type="password" 
-                    id="password" 
-                    required 
+                  <Input
+                    type="password"
+                    id="password"
+                    required
                     {...register("password")}
                   />
                 </Field>
@@ -71,7 +72,7 @@ const Page = () => {
             </FieldSet>
             <Field orientation="horizontal" className="justify-center">
               <Button variant={"outline"} className="text-black" type="submit">
-                {isLoading ? "Logging in..." : 'Log in'}
+                {isLoading ? "Logging in..." : "Log in"}
               </Button>
             </Field>
           </FieldGroup>
