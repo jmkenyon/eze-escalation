@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Form from "../components/Form";
 import prisma from "@/app/lib/prisma";
 
