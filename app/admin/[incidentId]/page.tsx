@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import ClosedWrapper from "@/app/components/ClosedWrapper";
 import prisma from "@/app/lib/prisma";
 import Link from "next/link";
