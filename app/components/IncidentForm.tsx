@@ -57,7 +57,7 @@ const IncidentForm = () => {
         </Field>
 
         <Field orientation="horizontal" className="justify-center">
-          <Button variant={"outline"} type="submit">
+          <Button variant={"outline"} type="submit" disabled={isLoading}>
             {isLoading ? "Creating..." : "Create Incident"}
           </Button>
         </Field>

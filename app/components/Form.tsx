@@ -130,7 +130,7 @@ const Form = ({ adviceContent, incident }: FormProps) => {
         </FieldGroup>
 
         <Field orientation="horizontal" className="justify-center">
-          <Button variant={"outline"} type="submit">
+          <Button variant={"outline"} type="submit" disabled={isLoading}>
             {isLoading ? "Updating..." : "Update"}
           </Button>
         </Field>
