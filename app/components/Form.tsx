@@ -36,7 +36,7 @@ interface FormProps {
 }
 
 const Form = ({ adviceContent, incident }: FormProps) => {
-  const router = useRouter()
+  const router = useRouter();
   const [status, setStatus] = useState("OPEN");
   const [isLoading, setIsLoading] = useState(false);
   const { register, handleSubmit } = useForm<FieldValues>({
@@ -52,11 +52,11 @@ const Form = ({ adviceContent, incident }: FormProps) => {
     try {
       const finalPayload = {
         ...data,
-        status
-      }
+        status,
+      };
       await axios.post("/api/update", finalPayload);
       toast.success("Update sent");
-      router.refresh()
+      router.refresh();
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
@@ -118,18 +118,16 @@ const Form = ({ adviceContent, incident }: FormProps) => {
           </SelectContent>
         </Select>
 
-        {status === "RESOLVED" && (
-          <FieldGroup>
-            <Field>
-              <FieldLabel htmlFor="file">Postmort PDF</FieldLabel>
-              <Input
-                id="file"
-                type="file"
-                className="bg-white max-w-75 cursor-pointer"
-              />
-            </Field>
-          </FieldGroup>
-        )}
+        <FieldGroup>
+          <Field>
+            <FieldLabel htmlFor="file">Postmort PDF</FieldLabel>
+            <Input
+              id="file"
+              type="file"
+              className="bg-white max-w-75 cursor-pointer"
+            />
+          </Field>
+        </FieldGroup>
 
         <Field orientation="horizontal" className="justify-center">
           <Button variant={"outline"} type="submit">

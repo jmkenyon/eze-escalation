@@ -1,5 +1,6 @@
 import ClosedWrapper from "@/app/components/ClosedWrapper";
 import prisma from "@/app/lib/prisma";
+import Link from "next/link";
 
 interface IParams {
   incidentId?: string;
@@ -50,6 +51,9 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
 
   return (
     <ClosedWrapper closedIncidents={closedIncidents}>
+      <div className="bg-white max-w-30 text-center mt-10 rounded-l-none rounded-xl py-3 cursor-pointer hover:bg-white/90">
+        <Link href="/admin">Dashboard</Link>
+      </div>
       <div className="bg-blue-400 h-full p-20 flex flex-col items-center">
         <div className="bg-white min-w-3xl p-10 rounded-xl shadow-2xl space-y-6">
           <div className="border-b pb-4">
