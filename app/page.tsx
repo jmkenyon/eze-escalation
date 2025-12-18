@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic";
 
 import prisma from "@/app/lib/prisma";
+import IncidentUpdates from "./components/IncidentUpdates";
 
 export default async function Home() {
   const incident = await prisma.incident.findFirst({
@@ -35,36 +36,6 @@ export default async function Home() {
   });
 
   return (
-    <main className="bg-blue-400 flex flex-col pt-10 items-center text-blue-950 h-screen">
-      <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[20%] mb-5 flex flex-col gap-3">
-        <p className="text-lg font-semibold text-gray-800 mb-2">
-          Latest advice
-        </p>
-        {adviceContent ? (
-          <p>{adviceContent}</p>
-        ) : (
-          <p className="text-gray-400 italic">No advice given</p>
-        )}
-      </div>
-      <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[50%]">
-        <div className="flex flex-col">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Updates</h2>
-          <ul className="space-y-2 list-none  text-gray-700">
-            {updates.length > 0 ? (
-              updates.map((item, index) => (
-                <li key={index}>
-                  <span className="px-2 py-0.5 text-xs rounded bg-gray-100 text-gray-600">
-                    {new Date(item.createdAt).toLocaleTimeString()}
-                  </span>
-                  <span className="text-gray-800">{" "}{item.update}</span>
-                </li>
-              ))
-            ) : (
-              <li className="text-gray-400 italic">No updates</li>
-            )}
-          </ul>
-        </div>
-      </div>
-    </main>
+   <IncidentUpdates   incidentId={incident.id}   adviceContent={adviceContent} updates={updates}/>
   );
 }

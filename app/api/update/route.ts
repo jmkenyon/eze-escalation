@@ -1,5 +1,8 @@
+export const runtime = "nodejs";
+
 import { cookies } from "next/headers";
 import prisma from "@/app/lib/prisma"
+import { pusherServer } from "@/lib/pusher";
 
 export async function POST(req: Request) {
   const { advice, update, incidentId, status } = await req.json();
@@ -11,7 +14,7 @@ export async function POST(req: Request) {
     return new Response("Unauthorized", { status: 401 });
   }
 
-  await prisma.message.create({
+  const message = await prisma.message.create({
     data: {
       advice,
       update,
@@ -35,6 +38,17 @@ export async function POST(req: Request) {
       }
     })
   }
+
+  await pusherServer.trigger(
+    `incident-${incidentId}`,
+    "incident:update",
+    {
+      update: message.update,
+      advice: message.advice,
+      status,
+      createdAt: message.createdAt.toISOString(),
+    }
+  );
 
 
 
