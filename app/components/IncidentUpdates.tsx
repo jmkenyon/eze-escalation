@@ -44,7 +44,7 @@ const IncidentUpdates = ({
         ]);
       }
 
-      if (data.advice !== null && data.advice !== undefined) {
+      if (data.advice) {
         setLiveAdvice(data.advice);
       }
     });

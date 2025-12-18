@@ -36,6 +36,10 @@ export default async function Home() {
   });
 
   return (
-   <IncidentUpdates   incidentId={incident.id}   adviceContent={adviceContent} updates={updates}/>
+    <IncidentUpdates
+      incidentId={incident.id}
+      adviceContent={adviceContent}
+      updates={updates}
+    />
   );
 }
