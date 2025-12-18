@@ -11,7 +11,8 @@ const Page = async () => {
   const closedIncidents = await prisma.incident.findMany({
     where: {
         status: "RESOLVED"
-    }
+    },
+    orderBy: { openedAt: "desc" },
 })
   const incident = await prisma.incident.findFirst({
     where: { status: "OPEN" },

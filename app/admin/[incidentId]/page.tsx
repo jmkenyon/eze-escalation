@@ -21,6 +21,7 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
     where: {
       status: "RESOLVED",
     },
+    orderBy: { openedAt: "desc" },
   });
 
   const updates = await prisma.message.findMany({
