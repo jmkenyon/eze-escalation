@@ -20,7 +20,7 @@ const Page = async () => {
   if (!incident) {
     return (
       <ClosedWrapper closedIncidents={closedIncidents}>
-        <section className=" h-screen flex flex-col items-center mt-50">
+        <section className=" h-screen flex flex-col items-center mt-20">
           <IncidentForm />
         </section>
       </ClosedWrapper>
