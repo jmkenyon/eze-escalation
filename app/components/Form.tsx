@@ -118,17 +118,6 @@ const Form = ({ adviceContent, incident }: FormProps) => {
           </SelectContent>
         </Select>
 
-        <FieldGroup>
-          <Field>
-            <FieldLabel htmlFor="file">Postmort PDF</FieldLabel>
-            <Input
-              id="file"
-              type="file"
-              className="bg-white max-w-75 cursor-pointer"
-            />
-          </Field>
-        </FieldGroup>
-
         <Field orientation="horizontal" className="justify-center">
           <Button variant={"outline"} type="submit" disabled={isLoading}>
             {isLoading ? "Updating..." : "Update"}
