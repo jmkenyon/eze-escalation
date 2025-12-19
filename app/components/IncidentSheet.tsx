@@ -37,12 +37,12 @@ const IncidentSheet = ({
               <Link
                href={`/admin/${item.id}`}
                 key={index}
-                className="w-full text-left p-4 bg-white text-black hover:bg-blue-400 flex items-center text-base font-medium"
+                className="w-full text-left p-4 bg-white text-black hover:bg-blue-400 flex items-center md:text-base text-sm font-medium flex-1 wrap-break-word"
                 onClick={() => onOpenChange(false)}
 
               >
                 {item.resolvedAt && (
-                  <span className="mr-2 text-sm text-gray-800">
+                  <span className="mr-2 md:text-sm text-xs text-gray-800">
                     {new Date(item.resolvedAt).toLocaleDateString()}  
                   </span>
                 )}

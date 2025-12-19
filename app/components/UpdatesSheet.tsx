@@ -112,7 +112,7 @@ const UpdatesSheet = ({ open, onOpenChange, updates, incidentId}: UpdatesSheetPr
 
                 {item.update && (
                   <button
-                    className="opacity-0 group-hover:opacity-100 transition text-black hover:text-red-600 p-2 rounded-md hover:bg-red-100 cursor-pointer"
+                    className="md:opacity-0 group-hover:opacity-100 transition text-black hover:text-red-600 p-2 rounded-md hover:bg-red-100 cursor-pointer"
                     aria-label="Delete update"
                     onClick={() => deleteMessage(item.id)}
                     disabled={isLoading}
