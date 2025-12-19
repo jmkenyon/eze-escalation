@@ -3,4 +3,5 @@ export type IncidentUpdateEvent = {
     advice: string | null;
     status: "OPEN" | "RESOLVED";
     createdAt: string; 
+    messageId: string;
   };

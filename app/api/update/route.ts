@@ -47,6 +47,7 @@ export async function POST(req: Request) {
       advice: message.advice,
       status,
       createdAt: message.createdAt.toISOString(),
+      messageId: message.id,
     }
   );
 

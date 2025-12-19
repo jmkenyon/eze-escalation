@@ -27,11 +27,15 @@ export default async function Home() {
   const adviceContent = adviceResult?.advice ?? undefined;
 
   const updates = await prisma.message.findMany({
-    where: { incidentId: incident.id },
+    where: { 
+      incidentId: incident.id,
+      update: {not: ""}
+    },
     orderBy: { createdAt: "desc" },
     select: {
       update: true,
       createdAt: true,
+      id: true
     },
   });
 

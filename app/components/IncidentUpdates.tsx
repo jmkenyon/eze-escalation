@@ -10,6 +10,8 @@ interface IncidentUpdatesProps {
   updates: {
     update: string | null;
     createdAt: Date;
+    id: string
+
   }[];
 }
 
@@ -34,11 +36,13 @@ const IncidentUpdates = ({
     channel.bind("incident:update", (data: IncidentUpdateEvent) => {
       console.log("[PUSHER] Event received:", data);
 
+ 
       if (data.update) {
         setLiveUpdates((prev) => [
           {
             update: data.update,
             createdAt: new Date(data.createdAt),
+            id: data.messageId
           },
           ...prev,
         ]);
@@ -48,6 +52,17 @@ const IncidentUpdates = ({
         setLiveAdvice(data.advice);
       }
     });
+
+
+    channel.bind("incident:message_delete", (data: IncidentUpdateEvent) => {
+      console.log("[PUSHER] Delete Event received:", data);
+
+      if (data.update) {
+        setLiveUpdates((prev) => prev.filter(update => update.id !== data.messageId));
+      }
+    });
+
+
 
     return () => {
       console.log("[PUSHER] Unsubscribing");

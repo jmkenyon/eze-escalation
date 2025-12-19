@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 
 import ClosedWrapper from "@/app/components/ClosedWrapper";
 import prisma from "@/app/lib/prisma";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 interface IParams {
@@ -53,11 +54,8 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
   }
 
   return (
-    <ClosedWrapper closedIncidents={closedIncidents}>
-      <div className="bg-white max-w-30 text-center mt-10 rounded-l-none rounded-xl py-3 cursor-pointer hover:bg-white/90">
-        <Link href="/admin">Dashboard</Link>
-      </div>
-      <div className="bg-blue-400 h-full p-20 flex flex-col items-center">
+    <ClosedWrapper closedIncidents={closedIncidents} rightDrawer={true}>
+      <div className="bg-blue-400 h-full flex flex-col items-center mt-15">
         <div className="bg-white min-w-3xl p-10 rounded-xl shadow-2xl space-y-6">
           <div className="border-b pb-4">
             <h1 className="text-2xl font-bold text-gray-900">
@@ -97,6 +95,9 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
           </div>
         </div>
       </div>
+      <Button variant={"outline"} className="mt-10 rounded-r-none">
+        <Link href="/admin">Dashboard</Link>
+      </Button>
     </ClosedWrapper>
   );
 };
