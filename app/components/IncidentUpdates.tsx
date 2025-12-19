@@ -71,21 +71,21 @@ const IncidentUpdates = ({
     };
   }, [incidentId]);
   return (
-    <main className="bg-blue-400 flex flex-col pt-10 items-center text-blue-950 h-full">
-      <div className="bg-white p-10 rounded-lg shadow min-w-3xl  mb-5 flex flex-col gap-3">
-        <p className="text-lg font-semibold text-gray-800 mb-2">
+    <main className="bg-blue-400 flex flex-col pt-10 items-center text-blue-950 h-full md:p-10 p-5">
+      <div className="bg-white md:p-10 p-5 rounded-lg shadow w-full mb-5 flex flex-col gap-3 max-w-4xl">
+        <p className="md:text-lg sm:text-base text-sm font-semibold text-gray-800 mb-2">
           Latest advice
         </p>
         {liveAdvice !== undefined ? (
           <p>{liveAdvice}</p>
         ) : (
-          <p className="text-gray-400 italic">No advice given</p>
+          <p className="text-gray-400 italic md:text-base sm:text-sm text-xs ">No advice given</p>
         )}
       </div>
 
-      <div className="bg-white p-10 rounded-lg shadow min-w-3xl min-h-[50%]">
+      <div className="bg-white md:p-10 p-5 rounded-lg shadow min-h-[50%] w-full max-w-4xl">
         <div className="flex flex-col">
-          <h2 className="text-lg font-semibold text-gray-800 mb-2">Updates</h2>
+          <h2 className="font-semibold text-gray-800 mb-2 md:text-lg sm:text-base text-sm ">Updates</h2>
           <ul className="space-y-2 list-none text-gray-700">
             {liveUpdates.length > 0 ? (
               liveUpdates.map((item, index) => (
@@ -97,7 +97,7 @@ const IncidentUpdates = ({
                 </li>
               ))
             ) : (
-              <li className="text-gray-400 italic">No updates</li>
+              <li className="text-gray-400 italic md:text-base sm:text-sm text-xs ">No updates</li>
             )}
           </ul>
         </div>

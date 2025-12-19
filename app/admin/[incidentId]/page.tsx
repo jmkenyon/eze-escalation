@@ -55,8 +55,8 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
 
   return (
     <ClosedWrapper closedIncidents={closedIncidents} rightDrawer={true}>
-      <div className="bg-blue-400 h-full flex flex-col items-center mt-15">
-        <div className="bg-white min-w-3xl p-10 rounded-xl shadow-2xl space-y-6">
+      <div className="bg-blue-400 h-full w-full mt-30 px-5">
+        <div className="bg-white p-10 rounded-xl shadow-2xl space-y-6">
           <div className="border-b pb-4">
             <h1 className="text-2xl font-bold text-gray-900">
               {incident.title}
@@ -95,7 +95,7 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
           </div>
         </div>
       </div>
-      <Button variant={"outline"} className="mt-10 rounded-r-none">
+      <Button variant={"outline"} className="absolute right-0 top-10 px-3 py-1  rounded-r-none">
         <Link href="/admin">Dashboard</Link>
       </Button>
     </ClosedWrapper>

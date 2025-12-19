@@ -7,47 +7,40 @@ import IncidentSheet from "./IncidentSheet";
 import { Incident } from "@prisma/client";
 import UpdatesSheet from "./UpdatesSheet";
 import { Updates } from "../types/updates";
-import { cn } from "@/lib/utils";
 
 interface ClosedWrapperProps {
   children: React.ReactNode;
   closedIncidents: Incident[];
   updates?: Updates;
   rightDrawer?: boolean;
-  incidentId?: string
+  incidentId?: string;
 }
 
 const ClosedWrapper = ({
   children,
   closedIncidents,
   updates,
-  rightDrawer,
-  incidentId
+  incidentId,
 }: ClosedWrapperProps) => {
   const [open, setOpen] = useState(false);
   const [openUpdates, setOpenUpdates] = useState(false);
 
   return (
-    <main
-      className={cn(
-        "bg-blue-400 ",
-        (updates || rightDrawer) && "flex flex-row justify-between"
-      )}
-    >
+    <main className="relative bg-blue-400 min-h-screen flex justify-center">
       <IncidentSheet
         open={open}
         onOpenChange={setOpen}
         closedIncidents={closedIncidents}
       />
       <Button
-        className="bg-white inline-flex px-3 py-1 mt-10 cursor-pointer text-black rounded-l-none"
-        variant={"outline"}
+        className="absolute left-0 top-10 bg-white px-3 py-1 rounded-l-none"
+        variant="outline"
         onClick={() => setOpen((prev) => !prev)}
       >
-        <p>Closed Incidents</p>
+        Closed Incidents
       </Button>
 
-      {children}
+      <div className="w-full max-w-4xl">{children}</div>
       {updates && (
         <div>
           <UpdatesSheet
@@ -57,11 +50,11 @@ const ClosedWrapper = ({
             incidentId={incidentId}
           />
           <Button
-            className="bg-white inline-flex px-3 py-1 mt-10 cursor-pointer text-black rounded-r-none"
-            variant={"outline"}
+            className="absolute right-0 top-10 bg-white px-3 py-1 rounded-r-none"
+            variant="outline"
             onClick={() => setOpenUpdates((prev) => !prev)}
           >
-            <p>Previous Updates</p>
+            Previous Updates
           </Button>
         </div>
       )}

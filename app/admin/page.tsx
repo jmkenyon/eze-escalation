@@ -52,7 +52,7 @@ const Page = async () => {
 
   return (
     <ClosedWrapper closedIncidents={closedIncidents} updates={updates} incidentId={incident.id}>
-      <section className="bg-blue-400 h-full flex flex-col items-center p-10">
+      <section className="bg-blue-400 h-full flex flex-col items-stretch pb-10 pt-30 w-full">
         <Form adviceContent={adviceContent} incident={incident} />
       </section>
     </ClosedWrapper>

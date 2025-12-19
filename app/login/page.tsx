@@ -42,7 +42,7 @@ const Page = () => {
 
   return (
     <section className="flex flex-col h-screen bg-blue-400 text-white justify-center items-center">
-      <div className="min-w-md">
+      <div className="md:min-w-md min-w-xs">
         <form onSubmit={handleSubmit(onSubmit)}>
           <FieldGroup className="flex flex-col">
             <FieldSet className="">

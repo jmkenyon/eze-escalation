@@ -66,7 +66,7 @@ const Form = ({ adviceContent, incident }: FormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="min-w-3xl h-full">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-full h-full sm:px-10 px-5">
       <FieldGroup className="flex flex-col">
         <FieldLegend className="font-bold text-center text-white text-3xl m-0">
           Admin Dashboard
