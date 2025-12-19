@@ -95,7 +95,7 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
           </div>
         </div>
       </div>
-      <Button variant={"outline"} className="absolute right-0 top-10 px-3 py-1  rounded-r-none">
+      <Button asChild variant={"outline"} className="absolute right-0 top-10 px-3 py-1  rounded-r-none">
         <Link href="/admin">Dashboard</Link>
       </Button>
     </ClosedWrapper>
