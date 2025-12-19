@@ -40,7 +40,7 @@ const IncidentForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="md:min-w-2xl sm:min-w-md min-w-xs">
+    <form onSubmit={handleSubmit(onSubmit)} className="md:min-w-2xl sm:min-w-md min-w-xs md:pt-30 pt-20">
       <FieldGroup className="flex flex-col">
         <FieldLegend className="font-bold text-center text-white text-2xl m-0">
           Create Incident
