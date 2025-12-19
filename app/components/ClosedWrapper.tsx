@@ -9,12 +9,12 @@ import UpdatesSheet from "./UpdatesSheet";
 import { Updates } from "../types/updates";
 import { cn } from "@/lib/utils";
 
-
 interface ClosedWrapperProps {
   children: React.ReactNode;
   closedIncidents: Incident[];
   updates?: Updates;
-  rightDrawer?: boolean
+  rightDrawer?: boolean;
+  incidentId?: string
 }
 
 const ClosedWrapper = ({
@@ -22,13 +22,15 @@ const ClosedWrapper = ({
   closedIncidents,
   updates,
   rightDrawer,
+  incidentId
 }: ClosedWrapperProps) => {
   const [open, setOpen] = useState(false);
   const [openUpdates, setOpenUpdates] = useState(false);
 
   return (
     <main
-      className={cn("bg-blue-400 ",
+      className={cn(
+        "bg-blue-400 ",
         (updates || rightDrawer) && "flex flex-row justify-between"
       )}
     >
@@ -52,6 +54,7 @@ const ClosedWrapper = ({
             open={openUpdates}
             onOpenChange={setOpenUpdates}
             updates={updates}
+            incidentId={incidentId}
           />
           <Button
             className="bg-white inline-flex px-3 py-1 mt-10 cursor-pointer text-black rounded-r-none"

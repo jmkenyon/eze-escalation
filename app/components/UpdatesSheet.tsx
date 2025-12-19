@@ -10,9 +10,12 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 import { Updates } from "../types/updates";
 import { Trash } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { pusherClient } from "@/lib/pusher";
+import { IncidentUpdateEvent } from "../types/incident";
+
 
 
 
@@ -20,11 +23,57 @@ interface UpdatesSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   updates: Updates;
+  incidentId?: string
 }
 
-const UpdatesSheet = ({ open, onOpenChange, updates }: UpdatesSheetProps) => {
+const UpdatesSheet = ({ open, onOpenChange, updates, incidentId}: UpdatesSheetProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentUpdates, setCurrentUpdates] = useState(updates)
+
+
+
+    useEffect(() => {
+      if (!incidentId) return;
+  
+      console.log("[PUSHER] Subscribing to:", `incident-${incidentId}`);
+  
+      const channel = pusherClient.subscribe(`incident-${incidentId}`);
+  
+      channel.bind("incident:update", (data: IncidentUpdateEvent) => {
+        console.log("[PUSHER] Event received:", data);
+  
+   
+        if (data.update) {
+          setCurrentUpdates((prev) => [
+            {
+              update: data.update,
+              createdAt: new Date(data.createdAt),
+              id: data.messageId
+            },
+            ...prev,
+          ]);
+        }
+
+      });
+  
+  
+      channel.bind("incident:message_delete", (data: IncidentUpdateEvent) => {
+        console.log("[PUSHER] Delete Event received:", data);
+  
+        if (data.update) {
+          setCurrentUpdates((prev) => prev.filter(update => update.id !== data.messageId));
+        }
+      });
+  
+  
+  
+      return () => {
+        console.log("[PUSHER] Unsubscribing");
+        channel.unbind_all();
+        pusherClient.unsubscribe(`incident-${incidentId}`);
+      };
+    }, [incidentId]);
+
   const deleteMessage = async (messageId:string) => {
     setIsLoading(true)
     try {

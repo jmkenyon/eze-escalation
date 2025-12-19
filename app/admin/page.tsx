@@ -2,9 +2,7 @@ export const dynamic = "force-dynamic";
 
 import Form from "../components/Form";
 import prisma from "@/app/lib/prisma";
-
 import IncidentForm from "../components/IncidentForm";
-
 import ClosedWrapper from "../components/ClosedWrapper";
 
 const Page = async () => {
@@ -53,7 +51,7 @@ const Page = async () => {
   const adviceContent = adviceResult?.advice ?? undefined;
 
   return (
-    <ClosedWrapper closedIncidents={closedIncidents} updates={updates}>
+    <ClosedWrapper closedIncidents={closedIncidents} updates={updates} incidentId={incident.id}>
       <section className="bg-blue-400 h-full flex flex-col items-center p-10">
         <Form adviceContent={adviceContent} incident={incident} />
       </section>
