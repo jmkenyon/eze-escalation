@@ -4,14 +4,13 @@ import { cookies } from "next/headers";
 import prisma from "@/app/lib/prisma";
 import { NextResponse } from "next/server";
 import { pusherServer } from "@/lib/pusher";
-
-
+import { NextRequest } from "next/server";
 
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { messageId: string } }
 ) {
-  const { messageId } = await params
+  const { messageId } = await params;
 
   const cookieStore = await cookies();
   const senderId = cookieStore.get("admin_session")?.value;
@@ -35,9 +34,9 @@ export async function DELETE(
       id: messageId,
     },
     select: {
-      incidentId: true
-    }
-  })
+      incidentId: true,
+    },
+  });
 
   const deleteMessage = await prisma.message.delete({
     where: {
@@ -45,12 +44,16 @@ export async function DELETE(
     },
   });
 
-  await pusherServer.trigger(`incident-${findIncidentId?.incidentId}`, "incident:message_delete", {
-    update: deleteMessage.update,
-    advice: deleteMessage.advice,
-    createdAt: deleteMessage.createdAt.toISOString(),
-    messageId: deleteMessage.id
-  });
+  await pusherServer.trigger(
+    `incident-${findIncidentId?.incidentId}`,
+    "incident:message_delete",
+    {
+      update: deleteMessage.update,
+      advice: deleteMessage.advice,
+      createdAt: deleteMessage.createdAt.toISOString(),
+      messageId: deleteMessage.id,
+    }
+  );
 
   return new Response("OK");
 }
