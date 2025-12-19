@@ -54,7 +54,7 @@ const IncidentPage = async ({ params }: { params: Promise<IParams> }) => {
   }
 
   return (
-    <ClosedWrapper closedIncidents={closedIncidents} rightDrawer={true}>
+    <ClosedWrapper closedIncidents={closedIncidents}>
       <div className="bg-blue-400 h-full w-full mt-30 px-5">
         <div className="bg-white p-10 rounded-xl shadow-2xl space-y-6">
           <div className="border-b pb-4">

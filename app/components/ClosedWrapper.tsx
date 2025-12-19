@@ -12,7 +12,7 @@ interface ClosedWrapperProps {
   children: React.ReactNode;
   closedIncidents: Incident[];
   updates?: Updates;
-  rightDrawer?: boolean;
+
   incidentId?: string;
 }
 

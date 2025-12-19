@@ -38,6 +38,8 @@ const IncidentSheet = ({
                href={`/admin/${item.id}`}
                 key={index}
                 className="w-full text-left p-4 bg-white text-black hover:bg-blue-400 flex items-center text-base font-medium"
+                onClick={() => onOpenChange(false)}
+
               >
                 {item.resolvedAt && (
                   <span className="mr-2 text-sm text-gray-800">
